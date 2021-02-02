@@ -1,4 +1,5 @@
 /*
+LAB 3
 Program: Control statements and arrays
 Domain: Courier Management System
 Author: Akash Roshan A
@@ -9,19 +10,21 @@ Github: akashroshan135
 import java.io.*;
 
 class courierMgmtSys {
+	static int managerID = 1;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
 		// do while used to loop the statements until choice selected is 3
 		do {
 			System.out.println("\tCourier Management System");
-			System.out.println("1. Admin Module\n2. Manager Module\n3. Exit");
+			System.out.println("1. Admin Module (WIP)\n2. Manager Module\n3. Exit");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					admin_program();
+					//admin_program();
 					break;
 				case 2:
 					manager_program();
@@ -31,7 +34,8 @@ class courierMgmtSys {
 			}
 		} while (choice < 3);
 	}
-
+	/*
+	// allows user to use admin module. Feels botched tho
 	public static void admin_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
@@ -63,32 +67,53 @@ class courierMgmtSys {
 			System.out.println("\nPress Enter to Continue...");
 			br.readLine();
 		} while (choice < 3);
-	}
-
+	}*/
+	// allows user to use manager module. Feels botched, need to write better code
 	public static void manager_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
 
-		//manager[] managerObjects = new manager[2];
-		manager M1 = new manager();
-		manager M2 = new manager("test1", "test1@email.com", "testpass", "1234567898", "Bangalore", 50000);
-		manager M3 = new manager("test2", "test2@email.com", "testpass", "1234567898", "Bangalore", 50000);
+		manager managerObjects[] = new manager[10];
 		// do while used to loop the statements until choice selected is 3
 		do {
 			System.out.println("\tCheck Managers");
-			System.out.println("1. Display all managers\n2. Modify managers details (only ID:3)\n3. Go Back");
+			System.out.println("1. Add new manager\n2. Modify managers details\n3. Display all managers\n4. Go Back");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					M1.display();
-					M2.display();
-					M3.display();
+					System.out.println("Name:");
+					String name = br.readLine();
+					System.out.println("Email ID:");
+					String email = br.readLine();
+					System.out.println("Password:");
+					String password = br.readLine();
+					System.out.println("Phone:");
+					String phone = br.readLine();
+					if (phone.length() != 10) {
+						System.out.println("Invalid Phone no. Default 0000000000 is placed");
+						phone = "0000000000";
+					}
+					System.out.println("Hub:");
+					String hub = br.readLine();
+					System.out.println("Salary:");
+					float salary = Float.parseFloat(br.readLine());
+					managerObjects[managerID++] = new manager(name, email, password, phone, hub, salary);
 					break;
 				case 2:
-					M3.modify();
-					M3.display();
+					System.out.println("Enter Manager ID:");
+					int id = Integer.parseInt(br.readLine());
+					managerObjects[id].modify();
+					managerObjects[id].display();
+					break;
+				case 3:
+					System.out.println("*******Manager Details***************\n");
+					for(int i = 1; i < managerID; i++) {
+						managerObjects[i].display();
+						System.out.println("*************************************\n");
+					}
+					System.out.println("*************************************");
 					break;
 				default:
 					break;
@@ -96,11 +121,11 @@ class courierMgmtSys {
 
 			System.out.println("\nPress Enter to Continue...");
 			br.readLine();
-		} while (choice < 3);
+		} while (choice < 4);
 	}
-
+	
 }
-
+/*
 class admin {
 	int Admin_ID;
 	String Admin_Name;
@@ -131,7 +156,7 @@ class admin {
 		}
 	}
 
-	// private function only usable in this class
+	// protected function only usable in this class
 	protected void modify()throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		
@@ -160,10 +185,11 @@ class admin {
 		System.out.println("Name     : " + Admin_Name);
 		System.out.println("Email ID : " + Admin_EmailID);
 		System.out.println("Phone    : " + Admin_Phone);
+		System.out.println("");
 	}
 	
 }
-
+*/
 class manager {
 	int Manager_ID;
 	String Manager_Name;
@@ -172,10 +198,11 @@ class manager {
 	String Manager_Phone;
 	String Manager_Hub;
 	float Manager_Salary;
+	// array of string objects
 	String[] Manager_Courier = new String[5];
 	static int id = 1;
 
-	// default constructor is used to assign default data to a new object
+	// default constructor is used to assign default data to a new object. Will not be used so can be removed
 	manager() {
 		Manager_ID = id++;
 		Manager_Name = "empty";
@@ -184,6 +211,7 @@ class manager {
 		Manager_Phone = "0000000000";
 		Manager_Hub = "Bangalore";
 		Manager_Salary = 50000;
+		// terrible code and repeated
 		Manager_Courier[0] = "test1";
 		Manager_Courier[1] = "test2";
 		Manager_Courier[2] = "test3";
@@ -204,6 +232,7 @@ class manager {
 		}
 		Manager_Hub = hub;
 		Manager_Salary = salary;
+		// find a way to recieve input from user
 		Manager_Courier[0] = "test1";
 		Manager_Courier[1] = "test2";
 		Manager_Courier[2] = "test3";
@@ -211,7 +240,7 @@ class manager {
 		Manager_Courier[4] = "test5";
 	}
 
-	// private function only usable in this class
+	// protected function only usable in this class and subclass
 	protected void modify()throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		
@@ -220,7 +249,7 @@ class manager {
 
 		// checks if the input password and the stored password matches
 		if (password.equals(Manager_Password)) {
-			System.out.println("Enter the details\n");
+			System.out.println("Enter the new details\n");
 
 			System.out.println("Name:");
 			Manager_Name = br.readLine();
@@ -247,7 +276,7 @@ class manager {
 		System.out.println("Salary   : " + Manager_Salary);
 		System.out.println("Couriers : ");
 		for (int i = 0; i < 5; i++) System.out.print(Manager_Courier[i] + ", ");
-		System.out.print("\n");
+		System.out.println("\n");
 	}
 
 }
