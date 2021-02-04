@@ -1,6 +1,6 @@
 /*
-LAB 3
-Program: Control statements and arrays
+Program 2
+Program: Implement the concept of class, data members, member functions and access specifiers
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
@@ -9,22 +9,27 @@ Github: akashroshan135
 
 import java.io.*;
 
+// class courierMgmtSys. Used as main class
 class courierMgmtSys {
+	// data members
 	static int managerID = 1;
+	static int adminID = 1;
 
+	// member functions
+	// public as it is main()
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
 		// do while used to loop the statements until choice selected is 3
 		do {
 			System.out.println("\tCourier Management System");
-			System.out.println("1. Admin Module (WIP)\n2. Manager Module\n3. Exit");
+			System.out.println("1. Admin Module\n2. Manager Module\n3. Exit");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					//admin_program();
+					admin_program();
 					break;
 				case 2:
 					manager_program();
@@ -34,31 +39,51 @@ class courierMgmtSys {
 			}
 		} while (choice < 3);
 	}
-	/*
-	// allows user to use admin module. Feels botched tho
+	
+	// allows user to use admin module
+	// set to public
 	public static void admin_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
 
-		admin A1 = new admin();
-		admin A2 = new admin("test1", "test1@email.com", "testpass", "1234567898");
-		admin A3 = new admin("test2", "test2@email.com", "testpass", "1234567898");
-		// do while used to loop the statements until choice selected is 3
+		admin adminObjects[] = new admin[10];
+
+		// do while used to loop the statements until choice selected is 4
 		do {
 			System.out.println("\tCheck Admins");
-			System.out.println("1. Display all admins\n2. Modify admin details (only ID:3)\n3. Go Back");
+			System.out.println("1. Add new admin\n2. Modify admin details\n3. Display all admins\n4. Go Back");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					A1.display();
-					A2.display();
-					A3.display();
+					System.out.println("Name:");
+					String name = br.readLine();
+					System.out.println("Email ID:");
+					String email = br.readLine();
+					System.out.println("Password:");
+					String password = br.readLine();
+					System.out.println("Phone:");
+					String phone = br.readLine();
+					if (phone.length() != 10) {
+						System.out.println("Invalid Phone no. Default 0000000000 is placed");
+						phone = "0000000000";
+					}
+					adminObjects[adminID++] = new admin(name, email, password, phone);
 					break;
 				case 2:
-					A3.modify();
-					A3.display();
+					System.out.println("Enter admin ID:");
+					int id = Integer.parseInt(br.readLine());
+					adminObjects[id].modify();
+					adminObjects[id].display();
+					break;
+				case 3:
+					System.out.println("************Admin Details************\n");
+					for(int i = 1; i < adminID; i++) {
+						adminObjects[i].display();
+						System.out.println("-------------------------------------\n");
+					}
+					System.out.println("*************************************");
 					break;
 				default:
 					break;
@@ -67,14 +92,15 @@ class courierMgmtSys {
 			System.out.println("\nPress Enter to Continue...");
 			br.readLine();
 		} while (choice < 3);
-	}*/
-	// allows user to use manager module. Feels botched, need to write better code
+	}
+	// allows user to use manager module
+	// set to public
 	public static void manager_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
 
 		manager managerObjects[] = new manager[10];
-		// do while used to loop the statements until choice selected is 3
+		// do while used to loop the statements until choice selected is 4
 		do {
 			System.out.println("\tCheck Managers");
 			System.out.println("1. Add new manager\n2. Modify managers details\n3. Display all managers\n4. Go Back");
@@ -108,10 +134,10 @@ class courierMgmtSys {
 					managerObjects[id].display();
 					break;
 				case 3:
-					System.out.println("*******Manager Details***************\n");
+					System.out.println("***********Manager Details***********\n");
 					for(int i = 1; i < managerID; i++) {
 						managerObjects[i].display();
-						System.out.println("*************************************\n");
+						System.out.println("-------------------------------------\n");
 					}
 					System.out.println("*************************************");
 					break;
@@ -125,7 +151,7 @@ class courierMgmtSys {
 	}
 	
 }
-/*
+// class admin for admins
 class admin {
 	int Admin_ID;
 	String Admin_Name;
@@ -156,7 +182,7 @@ class admin {
 		}
 	}
 
-	// protected function only usable in this class
+	// protected function only usable in this class and sub classes
 	protected void modify()throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		
@@ -189,7 +215,7 @@ class admin {
 	}
 	
 }
-*/
+// class manager used for managers
 class manager {
 	int Manager_ID;
 	String Manager_Name;
