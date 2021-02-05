@@ -14,6 +14,8 @@ class courierMgmtSys {
 	// data members
 	static int managerID = 1;
 	static int adminID = 1;
+	static admin adminObjects[] = new admin[10];
+	static manager managerObjects[] = new manager[10];
 
 	// member functions
 	// public as it is main()
@@ -35,25 +37,32 @@ class courierMgmtSys {
 					manager_program();
 					break;
 				default:
+					System.out.println("\nProgram will exit");
 					break;
 			}
 		} while (choice < 3);
 	}
 	
+	// set to public
+	public static int menu(int i) throws IOException {
+		String module[] = {"Admin", "Manager"};
+		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+		int choice;
+		System.out.println("\tCheck " + module[i]);
+		System.out.println("1. Add new " + module[i] + "\n2. Modify " + module[i] + " details\n3. Display all " + module[i] + "s\n4. Go Back");
+		System.out.println("Enter your choice:");
+		choice = Integer.parseInt(br.readLine());
+		return choice;
+	}
+
 	// allows user to use admin module
 	// set to public
 	public static void admin_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
-
-		admin adminObjects[] = new admin[10];
-
 		// do while used to loop the statements until choice selected is 4
 		do {
-			System.out.println("\tCheck Admins");
-			System.out.println("1. Add new admin\n2. Modify admin details\n3. Display all admins\n4. Go Back");
-			System.out.println("Enter your choice:");
-			choice = Integer.parseInt(br.readLine());
+			choice = menu(0);
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
@@ -86,26 +95,22 @@ class courierMgmtSys {
 					System.out.println("*************************************");
 					break;
 				default:
+					System.out.println("\nProgram will go to the main menu");
 					break;
 			}
 
 			System.out.println("\nPress Enter to Continue...");
 			br.readLine();
-		} while (choice < 3);
+		} while (choice < 4);
 	}
 	// allows user to use manager module
 	// set to public
 	public static void manager_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
 		int choice;
-
-		manager managerObjects[] = new manager[10];
 		// do while used to loop the statements until choice selected is 4
 		do {
-			System.out.println("\tCheck Managers");
-			System.out.println("1. Add new manager\n2. Modify managers details\n3. Display all managers\n4. Go Back");
-			System.out.println("Enter your choice:");
-			choice = Integer.parseInt(br.readLine());
+			choice = menu(1);
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
@@ -142,6 +147,7 @@ class courierMgmtSys {
 					System.out.println("*************************************");
 					break;
 				default:
+					System.out.println("\nProgram will go to the main menu");
 					break;
 			}
 
@@ -175,7 +181,7 @@ class admin {
 		Admin_EmailID = email;
 		Admin_Password = password;
 		// checks if the length of the phone no is 10. If not, a default value is inserted
-		if (phone.length() == 10) Admin_Phone = phone;
+		if (phone.isDigit.length() == 10) Admin_Phone = phone;
 		else {
 			System.out.println("Invalid Phone no, default no: 0000000000 is placed");
 			Admin_Phone = "0000000000";
