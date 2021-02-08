@@ -1,6 +1,6 @@
 /*
 Program 3
-Program: Implement the concept of class, data members, member functions and access specifiers
+Program: Implement the concept of function overloading & Constructor overloading. (default and parameterised)
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
@@ -11,24 +11,21 @@ import java.io.*;
 
 // class courierMgmtSys. Used as main class
 class courierMgmtSys {
-	// data members
 	static int managerID = 1;
 	static int adminID = 1;
 	static Admin adminObjects[] = new Admin[10];
 	static Manager managerObjects[] = new Manager[10];
 
-	// member functions
-	// public as it is main()
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
-		// do while used to loop the statements until choice selected is 3
+
 		do {
 			System.out.println("\tCourier Management System");
 			System.out.println("1. Admin Module\n2. Manager Module\n3. Exit");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
-			// switch used to switch to the required case
+
 			switch (choice) {
 				case 1:
 					admin_program();
@@ -43,30 +40,43 @@ class courierMgmtSys {
 		} while (choice < 3);
 	}
 	
-	// set to public
 	public static int menu(int i) throws IOException {
 		String module[] = {"Admin", "Manager"};
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("\tCheck " + module[i]);
 		System.out.println("1. Add new " + module[i] + "\n2. Modify " + module[i] + " details\n3. Display all " + module[i] + "s\n4. Go Back");
 		System.out.println("Enter your choice:");
-		//int choice = Integer.parseInt(br.readLine());
-		//return choice;
 		return Integer.parseInt(br.readLine());
 	}
 
 	// allows user to use admin module
-	// set to public
 	public static void admin_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
-		// do while used to loop the statements until choice selected is 4
+
 		do {
 			choice = menu(0);
-			// switch used to switch to the required case
+
 			switch (choice) {
+				/*
 				case 1:
 					adminObjects[adminID++] = new Admin();
+					break;
+					*/
+				case 1:
+					System.out.println("Enter Name:");
+					String Name = br.readLine();
+
+					System.out.println("Enter Email ID:");
+					String EmailID = br.readLine();
+
+					System.out.println("Enter Password:");
+					String Password = br.readLine();
+
+					System.out.println("Enter Phone:");
+					String Phone = br.readLine();
+					
+					adminObjects[adminID++] = new Admin(Name, EmailID, Phone, Password);
 					break;
 				case 2:
 					System.out.println("Enter Admin ID:");
@@ -84,23 +94,21 @@ class courierMgmtSys {
 					System.out.println("*************************************");
 					break;
 				default:
-					System.out.println("\nProgram will go to the main menu");
-					break;
+					System.out.println("\nProgram will go to the main menu\n");
+					return;
 			}
 
 			System.out.println("\nPress Enter to Continue...");
 			br.readLine();
 		} while (choice < 4);
 	}
+
 	// allows user to use manager module
-	// set to public
 	public static void manager_program() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
-		// do while used to loop the statements until choice selected is 4
 		do {
 			choice = menu(1);
-			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
 					managerObjects[managerID++] = new Manager();
@@ -121,7 +129,7 @@ class courierMgmtSys {
 					System.out.println("*************************************");
 					break;
 				default:
-					System.out.println("\nProgram will go to the main menu");
+					System.out.println("\nProgram will go to the main menu\n");
 					return;
 			}
 
@@ -132,6 +140,7 @@ class courierMgmtSys {
 	
 }
 
+// Base class with common features and functions
 class Person {
 	String Name, EmailID, Phone;
 
@@ -144,7 +153,7 @@ class Person {
 		System.out.println("Enter Email ID:");
 		this.EmailID = br.readLine();
 
-		System.out.println(" Enter Phone:");
+		System.out.println("Enter Phone:");
 		String Phone = br.readLine();
 		
 		// checks if the length of the phone no is 10. If not, a default value is inserted
@@ -167,7 +176,10 @@ class Person {
 
 	void modify() throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Enter the new details (leave blank to not change)\n");
+		
+		System.out.println("\nPress Enter to Continue...");
+		br.readLine();
+		System.out.println("\nEnter the new details (leave blank to not change)");
 
 		System.out.println("Enter new Name:");
 		String Name = br.readLine();
@@ -177,7 +189,7 @@ class Person {
 		String EmailID = br.readLine();
 		if (EmailID != "") this.EmailID = EmailID;
 
-		System.out.println(" Enter new Phone:");
+		System.out.println("Enter new Phone:");
 		String Phone = br.readLine();
 		if (Phone.length() == 10 && Phone != "") this.Phone = Phone;
 	}
@@ -202,7 +214,7 @@ class Admin extends Person {
 		this.Admin_ID = id++;
 		super.add();
 		System.out.println("Enter Password:");
-		String Admin_Password = br.readLine();
+		this.Admin_Password = br.readLine();
 	}
 
 	// parametrized constructor is used to assign args data to a new object
@@ -281,8 +293,8 @@ class Manager extends Person{
 			if (hub != "") this.Manager_Hub = hub;
 			
 			System.out.println("Enter new Salary:");
-			Float salary = Float.parseFloat(br.readLine());
-			if (salary != 0) this.Manager_Salary = salary;
+			String salary = br.readLine();
+			if (salary != "") this.Manager_Salary = Float.parseFloat(salary);
 
 		} else System.out.println("Invalid Password");
 
@@ -293,6 +305,6 @@ class Manager extends Person{
 		super.display();
 		System.out.println("Hub      : " + Manager_Hub);
 		System.out.println("Salary   : " + Manager_Salary);
-		System.out.println("\n");
+		System.out.println("");
 	}
 }
