@@ -1,5 +1,5 @@
 /*
-Program 2
+Program 3
 Program: Implement the concept of class, data members, member functions and access specifiers
 Domain: Courier Management System
 Author: Akash Roshan A
@@ -14,13 +14,13 @@ class courierMgmtSys {
 	// data members
 	static int managerID = 1;
 	static int adminID = 1;
-	static admin adminObjects[] = new admin[10];
-	static manager managerObjects[] = new manager[10];
+	static Admin adminObjects[] = new Admin[10];
+	static Manager managerObjects[] = new Manager[10];
 
 	// member functions
 	// public as it is main()
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		// do while used to loop the statements until choice selected is 3
 		do {
@@ -46,19 +46,19 @@ class courierMgmtSys {
 	// set to public
 	public static int menu(int i) throws IOException {
 		String module[] = {"Admin", "Manager"};
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
-		int choice;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("\tCheck " + module[i]);
 		System.out.println("1. Add new " + module[i] + "\n2. Modify " + module[i] + " details\n3. Display all " + module[i] + "s\n4. Go Back");
 		System.out.println("Enter your choice:");
-		choice = Integer.parseInt(br.readLine());
-		return choice;
+		//int choice = Integer.parseInt(br.readLine());
+		//return choice;
+		return Integer.parseInt(br.readLine());
 	}
 
 	// allows user to use admin module
 	// set to public
 	public static void admin_program() throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		// do while used to loop the statements until choice selected is 4
 		do {
@@ -66,24 +66,13 @@ class courierMgmtSys {
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					System.out.println("Name:");
-					String name = br.readLine();
-					System.out.println("Email ID:");
-					String email = br.readLine();
-					System.out.println("Password:");
-					String password = br.readLine();
-					System.out.println("Phone:");
-					String phone = br.readLine();
-					if (phone.length() != 10) {
-						System.out.println("Invalid Phone no. Default 0000000000 is placed");
-						phone = "0000000000";
-					}
-					adminObjects[adminID++] = new admin(name, email, password, phone);
+					adminObjects[adminID++] = new Admin();
 					break;
 				case 2:
-					System.out.println("Enter admin ID:");
+					System.out.println("Enter Admin ID:");
 					int id = Integer.parseInt(br.readLine());
 					adminObjects[id].modify();
+					System.out.println("Modified Details:");
 					adminObjects[id].display();
 					break;
 				case 3:
@@ -106,7 +95,7 @@ class courierMgmtSys {
 	// allows user to use manager module
 	// set to public
 	public static void manager_program() throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		// do while used to loop the statements until choice selected is 4
 		do {
@@ -114,28 +103,13 @@ class courierMgmtSys {
 			// switch used to switch to the required case
 			switch (choice) {
 				case 1:
-					System.out.println("Name:");
-					String name = br.readLine();
-					System.out.println("Email ID:");
-					String email = br.readLine();
-					System.out.println("Password:");
-					String password = br.readLine();
-					System.out.println("Phone:");
-					String phone = br.readLine();
-					if (phone.length() != 10) {
-						System.out.println("Invalid Phone no. Default 0000000000 is placed");
-						phone = "0000000000";
-					}
-					System.out.println("Hub:");
-					String hub = br.readLine();
-					System.out.println("Salary:");
-					float salary = Float.parseFloat(br.readLine());
-					managerObjects[managerID++] = new manager(name, email, password, phone, hub, salary);
+					managerObjects[managerID++] = new Manager();
 					break;
 				case 2:
 					System.out.println("Enter Manager ID:");
 					int id = Integer.parseInt(br.readLine());
 					managerObjects[id].modify();
+					System.out.println("Modified Details:");
 					managerObjects[id].display();
 					break;
 				case 3:
@@ -148,7 +122,7 @@ class courierMgmtSys {
 					break;
 				default:
 					System.out.println("\nProgram will go to the main menu");
-					break;
+					return;
 			}
 
 			System.out.println("\nPress Enter to Continue...");
@@ -157,158 +131,168 @@ class courierMgmtSys {
 	}
 	
 }
-// class admin for admins
-class admin {
-	int Admin_ID;
-	String Admin_Name;
-	String Admin_EmailID;
-	private String Admin_Password;
-	String Admin_Phone;
-	static int id = 1;
 
-	// default constructor is used to assign default data to a new object
-	admin() {
-		Admin_ID = id++;
-		Admin_Name = "empty";
-		Admin_EmailID = "empty";
-		Admin_Password = "testing";
-		Admin_Phone = "0000000000";
-	}
-	// parametrized constructor is used to assign args data to a new object
-	admin(String name, String email, String password, String phone) {
-		Admin_ID = id++;
-		Admin_Name = name;
-		Admin_EmailID = email;
-		Admin_Password = password;
+class Person {
+	String Name, EmailID, Phone;
+
+	void add() throws IOException {	
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.println("Enter Name:");
+		this.Name = br.readLine();
+
+		System.out.println("Enter Email ID:");
+		this.EmailID = br.readLine();
+
+		System.out.println(" Enter Phone:");
+		String Phone = br.readLine();
+		
 		// checks if the length of the phone no is 10. If not, a default value is inserted
-		if (phone.isDigit.length() == 10) Admin_Phone = phone;
+		if (Phone.length() == 10) this.Phone = Phone;
 		else {
-			System.out.println("Invalid Phone no, default no: 0000000000 is placed");
-			Admin_Phone = "0000000000";
+			System.out.println("Invalid Phone no. Default 0000000000 is placed");
+			this.Phone = "0000000000";
 		}
 	}
 
+	void add(String Name, String EmailID, String Phone) {	
+		this.Name = Name;
+		this.EmailID = EmailID;
+		if (Phone.length() == 10) this.Phone = Phone;
+		else {
+			System.out.println("Invalid Phone no. Default 0000000000 is placed");
+			this.Phone = "0000000000";
+		}
+	}
+
+	void modify() throws IOException {	
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter the new details (leave blank to not change)\n");
+
+		System.out.println("Enter new Name:");
+		String Name = br.readLine();
+		if (Name != "") this.Name = Name;
+
+		System.out.println("Enter new Email ID:");
+		String EmailID = br.readLine();
+		if (EmailID != "") this.EmailID = EmailID;
+
+		System.out.println(" Enter new Phone:");
+		String Phone = br.readLine();
+		if (Phone.length() == 10 && Phone != "") this.Phone = Phone;
+	}
+	
+	void display() {
+		System.out.println("Name     : " + Name);
+		System.out.println("Email ID : " + EmailID);
+		System.out.println("Phone    : " + Phone);
+	}
+}
+
+
+// class admin for admins
+class Admin extends Person {
+	int Admin_ID;
+	private String Admin_Password;
+	static int id = 1;
+
+	// default constructor is used to assign default data to a new object
+	Admin() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		this.Admin_ID = id++;
+		super.add();
+		System.out.println("Enter Password:");
+		String Admin_Password = br.readLine();
+	}
+
+	// parametrized constructor is used to assign args data to a new object
+	Admin(String name, String email, String phone, String password) {
+		Admin_ID = id++;
+		super.add(name, email, phone);
+		Admin_Password = password;
+	}
+
 	// protected function only usable in this class and sub classes
-	protected void modify()throws IOException {	
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+	protected void modify() throws IOException {	
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Please enter your password, " + Admin_Name + ": ");
+		System.out.println("Please enter your password, " + Name + ": ");
 		String password = br.readLine();
 
 		// checks if the input password and the stored password matches
 		if (password.equals(Admin_Password)) {
-			System.out.println("Enter the details\n");
-
-			System.out.println("Name:");
-			Admin_Name = br.readLine();
-			System.out.println("Email ID:");
-			Admin_EmailID = br.readLine();
-			System.out.println("Phone:");
-			String phone = br.readLine();
-			// checks if the length of the phone no is 10. If not, a default value is inserted
-			if (phone.length() == 10) Admin_Phone = phone;
-			else System.out.println("Invalid Phone no. Not modified");
+			super.modify();
 		} else System.out.println("Invalid Password");
-
 	}
+
 	// protected function only usable in this class and subclasses
 	protected void display() {
 		System.out.println("ID       : " + Admin_ID);
-		System.out.println("Name     : " + Admin_Name);
-		System.out.println("Email ID : " + Admin_EmailID);
-		System.out.println("Phone    : " + Admin_Phone);
+		super.display();
 		System.out.println("");
 	}
 	
 }
 // class manager used for managers
-class manager {
+class Manager extends Person{
 	int Manager_ID;
-	String Manager_Name;
-	String Manager_EmailID;
 	private String Manager_Password;
-	String Manager_Phone;
 	String Manager_Hub;
 	float Manager_Salary;
-	// array of string objects
-	String[] Manager_Courier = new String[5];
 	static int id = 1;
 
 	// default constructor is used to assign default data to a new object. Will not be used so can be removed
-	manager() {
-		Manager_ID = id++;
-		Manager_Name = "empty";
-		Manager_EmailID = "empty";
-		Manager_Password = "testing";
-		Manager_Phone = "0000000000";
-		Manager_Hub = "Bangalore";
-		Manager_Salary = 50000;
-		// terrible code and repeated
-		Manager_Courier[0] = "test1";
-		Manager_Courier[1] = "test2";
-		Manager_Courier[2] = "test3";
-		Manager_Courier[3] = "test4";
-		Manager_Courier[4] = "test5";
+	Manager() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		this.Manager_ID = id++;
+		super.add();
+
+		System.out.println("Enter Password:");
+		this.Manager_Password = br.readLine();
+
+		System.out.println("Enter Hub:");
+		this.Manager_Hub = br.readLine();
+
+		System.out.println("Enter Salary:");
+		this.Manager_Salary = Float.parseFloat(br.readLine());
 	}
 	// parametrized constructor is used to assign args data to a new object
-	manager(String name, String email, String password, String phone, String hub, float salary) {
-		Manager_ID = id++;
-		Manager_Name = name;
-		Manager_EmailID = email;
-		Manager_Password = password;
-		// checks if the length of the phone no is 10. If not, a default value is inserted
-		if (phone.length() == 10) Manager_Phone = phone;
-		else {
-			System.out.println("Invalid Phone no, default no: 0000000000 is placed");
-			Manager_Phone = "0000000000";
-		}
-		Manager_Hub = hub;
-		Manager_Salary = salary;
-		// find a way to recieve input from user
-		Manager_Courier[0] = "test1";
-		Manager_Courier[1] = "test2";
-		Manager_Courier[2] = "test3";
-		Manager_Courier[3] = "test4";
-		Manager_Courier[4] = "test5";
+	Manager(String name, String email, String phone, String password, String hub, float salary) {
+		this.Manager_ID = id++;
+		super.add(name, email, phone);
+		this.Manager_Password = password;
+		this.Manager_Hub = hub;
+		this.Manager_Salary = salary;
 	}
 
 	// protected function only usable in this class and subclass
-	protected void modify()throws IOException {	
-		BufferedReader br = new BufferedReader(new InputStreamReader (System.in));
+	protected void modify() throws IOException {	
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Please enter your password, " + Manager_Name + ": ");
+		System.out.println("Please enter your password, " + Name + ": ");
 		String password = br.readLine();
 
 		// checks if the input password and the stored password matches
 		if (password.equals(Manager_Password)) {
-			System.out.println("Enter the new details\n");
+			super.modify();
+			
+			System.out.println("Enter new Hub:");
+			String hub = br.readLine();
+			if (hub != "") this.Manager_Hub = hub;
+			
+			System.out.println("Enter new Salary:");
+			Float salary = Float.parseFloat(br.readLine());
+			if (salary != 0) this.Manager_Salary = salary;
 
-			System.out.println("Name:");
-			Manager_Name = br.readLine();
-			System.out.println("Email ID:");
-			Manager_EmailID = br.readLine();
-			System.out.println("Phone:");
-			String phone = br.readLine();
-			if (phone.length() == 10) Manager_Phone = phone;
-			else System.out.println("Invalid Phone no. Not modified");
-			System.out.println("Hub:");
-			Manager_Hub = br.readLine();
-			System.out.println("Salary:");
-			Manager_Salary = Float.parseFloat(br.readLine());
 		} else System.out.println("Invalid Password");
 
 	}
 	// protected function only usable in this class and subclasses
 	protected void display() {
 		System.out.println("ID       : " + Manager_ID);
-		System.out.println("Name     : " + Manager_Name);
-		System.out.println("Email ID : " + Manager_EmailID);
-		System.out.println("Phone    : " + Manager_Phone);
+		super.display();
 		System.out.println("Hub      : " + Manager_Hub);
 		System.out.println("Salary   : " + Manager_Salary);
-		System.out.println("Couriers : ");
-		for (int i = 0; i < 5; i++) System.out.print(Manager_Courier[i] + ", ");
 		System.out.println("\n");
 	}
-
 }
