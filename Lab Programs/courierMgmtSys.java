@@ -21,12 +21,38 @@ class courierMgmtSys {
 	static Courier courierObjects[] = new Courier[10];
 	static Shipment shipmentObjects[] = new Shipment[10];
 
+	static {
+		System.out.println("    Courier Management System\n\tby akashroshan135\n");
+	}
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
+		choice = Integer.parseInt(args[0]);
+		System.out.println("\tMain Menu");
+		System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Exit");
+		System.out.println("Enter your choice:");
+		//choice = Integer.parseInt(br.readLine());
 
+		switch (choice) {
+			case 1:
+				admin_program();
+				break;
+			case 2:
+				manager_program();
+				break;
+			case 3:
+				courier_program();
+				break;
+			case 4:
+				shipment_program();
+				break;
+			default:
+				System.out.println("\nProgram will exit");
+				break;
+		}
 		do {
-			System.out.println("\tCourier Management System");
+			System.out.println("\tMain Menu");
 			System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Exit");
 			System.out.println("Enter your choice:");
 			choice = Integer.parseInt(br.readLine());
@@ -306,10 +332,10 @@ class Admin extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		String password = br.readLine();
-
+		StringBuffer password = new StringBuffer();   
+		password.append(br.readLine());
 		// checks if the input password and the stored password matches
-		if (password.equals(Admin_Password)) {
+		if (password.toString().equals(Admin_Password)) {
 			super.modify();
 		} else System.out.println("Invalid Password");
 	}
@@ -351,10 +377,11 @@ class Manager extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		String password = br.readLine();
+		StringBuffer password = new StringBuffer();   
+		password.append(br.readLine());
 
 		// checks if the input password and the stored password matches
-		if (password.equals(Manager_Password)) {
+		if (password.toString().equals(Manager_Password)) {
 			super.modify();
 
 			System.out.println("Enter new Hub:");
@@ -410,10 +437,11 @@ class Courier extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		String password = br.readLine();
+		StringBuffer password = new StringBuffer();   
+		password.append(br.readLine());
 
 		// checks if the input password and the stored password matches
-		if (password.equals(Courier_Password)) {
+		if (password.toString().equals(Courier_Password)) {
 			super.modify();
 
 			System.out.println("Enter new Hub:");
