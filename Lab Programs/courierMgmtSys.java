@@ -28,11 +28,12 @@ class courierMgmtSys {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
-		choice = Integer.parseInt(args[0]);
 		System.out.println("\tMain Menu");
 		System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Exit");
 		System.out.println("Enter your choice:");
-		//choice = Integer.parseInt(br.readLine());
+		
+		if (args.length == 0) choice = Integer.parseInt(br.readLine());
+		else choice = Integer.parseInt(args[0]);
 
 		switch (choice) {
 			case 1:
@@ -49,7 +50,7 @@ class courierMgmtSys {
 				break;
 			default:
 				System.out.println("\nProgram will exit");
-				break;
+				return;
 		}
 		do {
 			System.out.println("\tMain Menu");
@@ -203,7 +204,7 @@ class courierMgmtSys {
 
 		do {
 			System.out.println("\tCheck Shipments");
-			System.out.println("1. Add new Shipment\n2. Update Status\n3. Update Location details\n4. Display Shipment\n5. Go Back");
+			System.out.println("1. Add new Shipment\n2. Update Status\n3. Update Location details\n4. Display Shipment\n5. Display all Shipments\n6. Go Back");
 			System.out.println("Enter your choice:");
 			choice =  Integer.parseInt(br.readLine());
 
@@ -593,6 +594,7 @@ class Shipment {
 		Shipment_Sender.display();
 		System.out.println("--------------------------------");
 
+		System.out.println("Receiver:\n");
 		Shipment_Reciever.display();
 		System.out.println("--------------------------------");
 		
