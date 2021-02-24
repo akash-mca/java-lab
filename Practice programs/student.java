@@ -1,17 +1,38 @@
 import java.io.*;
 
 class test {
-	static id = 1;
+	static int id = 1;
 	static Student mca[] = new Student[5];
 
 	public static void main(String[] args) throws IOException {
-		int totalstudents;
+		int choice, totalstudents = 0;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		mca[id] = new Student();
-		mca[id].display();
-		totalstudents= id
-		id++;
-		for (int i = 1; i <= totalstudents; id++)
+		do {
+			System.out.println("\tMain Menu");
+			System.out.println("1. Enter new Student\n2. Display all Students\n3. Exit");
+			System.out.println("Enter your choice:");
+			choice = Integer.parseInt(br.readLine());
+
+			switch (choice) {
+				case 1:
+					System.out.println("Enter the details of Student " + id + ":");
+					mca[id] = new Student();
+					totalstudents = id;
+					id++;
+					break;
+				case 2:
+					for (int i = 1; i <= totalstudents; i++) {
+						System.out.println("-----------------------------");
+						System.out.println("Details of Student " + i + ":");
+						mca[i].display();
+					}
+					break;
+				default:
+					System.out.println("\nProgram will exit");
+					break;
+			}
+		} while (choice < 3);
 	}
 }
 
@@ -19,7 +40,7 @@ class Student {
 	int regno;
 	String name;
 	String mailid;
-	String DOB;
+	int age;
 	int[] subMarks = new int[5];
 	int totalMarks;
 	float percentage;
@@ -35,24 +56,25 @@ class Student {
 		System.out.println("Enter mailid:");
 		this.mailid = br.readLine();
 
-		System.out.println("Enter Dob (dd-mm-yyyy):");
-		this.DOB = br.readLine();
+		System.out.println("Enter age:");
+		int years = Integer.parseInt(br.readLine());
+		this.age = years > 100 || years < 15 ? 20 : years;
 
 		this.totalMarks = 0;
 		for (int i = 0; i < 5; i++) {
-			System.out.println("Enter Subject " + i+1 + " marks : ");
+			System.out.println("Enter Subject " + (i + 1) + " marks : ");
 			subMarks[i] = Integer.parseInt(br.readLine());
 			this.totalMarks += subMarks[i];
 		}
-		this.percentage = (this.totalMarks / 500) * 100;
+		this.percentage = this.totalMarks * 100 / 500;
 	}
 	void display() {
 		System.out.println("Reg No          : " + regno);
 		System.out.println("Name            : " + name);
 		System.out.println("Email           : " + mailid);
-		System.out.println("DOB             : " + DOB);
+		System.out.println("Age             : " + age);
 		for (int i = 0; i < 5; i++) {
-			System.out.println("Subject "+ (i+1) + "marks :" + subMarks[i]);
+			System.out.println("Subject "+ (i + 1) + " marks : " + subMarks[i]);
 		}
 		System.out.println("Total           : " + totalMarks);
 		System.out.println("Percentage      : " + percentage);
