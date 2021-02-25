@@ -1,6 +1,6 @@
 /*
-Program 5
-Program: Implement command-line arguments,String and String Buffer class methods.
+Program 6
+Program: Implement the concept of inheritance, super, abstract and this keywords in java.
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
@@ -333,10 +333,9 @@ class Admin extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		StringBuffer password = new StringBuffer();   
-		password.append(br.readLine());
+		String password = br.readLine();
 		// checks if the input password and the stored password matches
-		if (password.toString().equals(Admin_Password)) {
+		if (password.equals(Admin_Password)) {
 			super.modify();
 		} else System.out.println("Invalid Password");
 	}
@@ -378,11 +377,10 @@ class Manager extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		StringBuffer password = new StringBuffer();   
-		password.append(br.readLine());
+		String password = br.readLine();
 
 		// checks if the input password and the stored password matches
-		if (password.toString().equals(Manager_Password)) {
+		if (password.equals(Manager_Password)) {
 			super.modify();
 
 			System.out.println("Enter new Hub:");
@@ -438,11 +436,10 @@ class Courier extends Person {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Please enter your password, " + Name + ": ");
-		StringBuffer password = new StringBuffer();   
-		password.append(br.readLine());
+		String password = br.readLine();
 
 		// checks if the input password and the stored password matches
-		if (password.toString().equals(Courier_Password)) {
+		if (password.equals(Courier_Password)) {
 			super.modify();
 
 			System.out.println("Enter new Hub:");
