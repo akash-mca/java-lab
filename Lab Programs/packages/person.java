@@ -1,10 +1,10 @@
 package packages;
 import java.io.*;
 
-public class person {
+public class person implements innerperson {
 	String Name, EmailID, Phone;
 
-	void add() throws IOException {	
+	public void add() throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Enter Name:");
@@ -24,7 +24,7 @@ public class person {
 		}
 	}
 
-	void add(String Name, String EmailID, String Phone) {	
+	public void add(String Name, String EmailID, String Phone) {	
 		this.Name = Name;
 		this.EmailID = EmailID;
 		if (Phone.length() == 10) this.Phone = Phone;
@@ -34,7 +34,7 @@ public class person {
 		}
 	}
 
-	void modify() throws IOException {	
+	public void modify() throws IOException {	
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("\nPress Enter to Continue...");
@@ -54,7 +54,7 @@ public class person {
 		if (Phone.length() == 10 && Phone != "") this.Phone = Phone;
 	}
 
-	void display() {
+	public void display() {
 		System.out.println("Name     : " + Name);
 		System.out.println("Email ID : " + EmailID);
 		System.out.println("Phone    : " + Phone);
