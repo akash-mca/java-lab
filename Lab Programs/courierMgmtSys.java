@@ -1,6 +1,6 @@
 /*
-Program 7
-Program: Implement package and interface keywords in java
+Program 8
+Program: Demonstrate the concept of exception handling. (user defined exception is a must)
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
@@ -26,7 +26,7 @@ class courierMgmtSys {
 		System.out.println("    Courier Management System\n\tby akashroshan135\n");
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, PriceException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		System.out.println("\tMain Menu");
@@ -261,7 +261,7 @@ class courierMgmtSys {
 	}
 
 	// allows user to use courier module
-	public static void shipment_program() throws IOException {
+	public static void shipment_program() throws IOException, PriceException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice, id;
 
@@ -275,7 +275,6 @@ class courierMgmtSys {
 				System.out.println("Incorrect Option, Program will go back");
 				choice = 6;
 			}
-			choice =  Integer.parseInt(br.readLine());
 
 			switch (choice) {
 				case 1:

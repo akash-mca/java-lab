@@ -11,7 +11,7 @@ public class shipment {
 	String Shipment_Courier;
 	String Shipment_Status;
 
-	public shipment() throws IOException {
+	public shipment() throws IOException, PriceException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		this.Shipment_ID = id++;
 
@@ -21,11 +21,15 @@ public class shipment {
 		System.out.println("Enter Reciever Details:");
 		Shipment_Reciever = new customer();
 
-		System.out.println("Enter price of the shipment:");
+		System.out.println("Enter price of the shipment (More than 100):");
 		try {
 			this.Shipment_Price = Float.parseFloat(br.readLine());
-		} catch (Exception e) {
+			validate(this.Shipment_Price);
+		} catch (NumberFormatException e) {
 			System.out.println("Incorrect input. Price is set to 100");
+			this.Shipment_Price = 100;
+		} catch (Exception e) {
+			System.out.println(e);
 			this.Shipment_Price = 100;
 		}
 
@@ -131,4 +135,9 @@ public class shipment {
 		System.out.println("Status   : " + Shipment_Status);
 		System.out.println("");
 	}
+
+	static void validate(float price) throws PriceException {
+		if (price < 100) throw new PriceException("Price less than 100, Price is set to 100");
+	}
+
 }
