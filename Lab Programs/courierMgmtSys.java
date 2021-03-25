@@ -1,6 +1,6 @@
 /*
-Program 8
-Program: Demonstrate the concept of exception handling. (user defined exception is a must)
+Program 9
+Program: Implement the concept of multithreading
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
@@ -11,7 +11,10 @@ import java.io.*;
 import packages.*;
 
 // class courierMgmtSys. Used as main class
-class courierMgmtSys {
+class courierMgmtSys extends Thread {
+	public static Thread myThread;
+	public static courierMgmtSys obj;
+
 	static int managerID = 1;
 	static int adminID = 1;
 	static int courierID = 1;
@@ -27,6 +30,9 @@ class courierMgmtSys {
 	}
 
 	public static void main(String[] args) throws IOException, PriceException {
+		obj = new courierMgmtSys();
+		myThread = new Thread(obj);
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		System.out.println("\tMain Menu");
@@ -60,7 +66,12 @@ class courierMgmtSys {
 				courier_program();
 				break;
 			case 4:
-				shipment_program();
+				myThread.start();
+				try {
+					myThread.join();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 				break;
 			default:
 				System.out.println("\nProgram will exit");
@@ -89,7 +100,12 @@ class courierMgmtSys {
 					courier_program();
 					break;
 				case 4:
-					shipment_program();
+					myThread.start();
+					try {
+						myThread.join();
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
 					break;
 				default:
 					System.out.println("\nProgram will exit");
@@ -260,8 +276,7 @@ class courierMgmtSys {
 		} while (choice < 4);
 	}
 
-	// allows user to use courier module
-	public static void shipment_program() throws IOException, PriceException {
+	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice, id;
 
@@ -278,7 +293,11 @@ class courierMgmtSys {
 
 			switch (choice) {
 				case 1:
+				try {
 					shipmentObjects[shipmentID++] = new shipment();
+				} catch (IOException | PriceException e1) {
+					e1.printStackTrace();
+				}
 					break;
 				case 2:
 					System.out.println("Enter Shipment ID:");
@@ -288,9 +307,17 @@ class courierMgmtSys {
 						System.out.println("Incorrect ID");
 						break;
 					}
+				try {
 					shipmentObjects[id].update_status();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 					System.out.println("Modified Details:\n");
+				try {
 					shipmentObjects[id].display();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 					break;
 				case 3:
 					System.out.println("Enter Shipment ID:");
@@ -300,9 +327,17 @@ class courierMgmtSys {
 						System.out.println("Incorrect ID");
 						break;
 					}
+				try {
 					shipmentObjects[id].update_details();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 					System.out.println("Modified Details:\n");
+				try {
 					shipmentObjects[id].display();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 					break;
 				case 4:
 					System.out.println("Enter Shipment ID:");
@@ -312,12 +347,20 @@ class courierMgmtSys {
 						System.out.println("Incorrect ID");
 						break;
 					}
+				try {
 					shipmentObjects[id].display();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 					break;
 				case 5:
 					System.out.println("*********All Shipment Details********\n");
 					for(int i = 1; i < shipmentID; i++) {
-						shipmentObjects[i].display();
+						try {
+							shipmentObjects[i].display();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						System.out.println("*************************************");
 						System.out.println("*************************************");
 					}
@@ -328,7 +371,11 @@ class courierMgmtSys {
 			}
 
 			System.out.println("\nPress Enter to Continue...");
-			br.readLine();
+			try {
+				br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} while (choice < 6);
 	}
 
