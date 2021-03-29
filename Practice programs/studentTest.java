@@ -1,6 +1,6 @@
 import java.io.*;
 
-class test {
+class studentTest {
 	static int id = 1;
 	static Student mca[] = new Student[5];
 

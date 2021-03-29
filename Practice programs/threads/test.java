@@ -1,3 +1,5 @@
+package threads;
+
 /*
 CAC Component 2
 Program: Demonstrate the concept of thread life cycles, thread priority, thread synchronization, interthread communication
@@ -7,7 +9,7 @@ Github: akashroshan135
 */
 
 // used to test threads and display various states. Also used for main function
-public class Test implements Runnable {
+class Test implements Runnable {
 	public static Thread thread1;
 	public static Test obj;
 
