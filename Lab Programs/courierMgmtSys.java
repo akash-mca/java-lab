@@ -1,14 +1,15 @@
 /*
-Program 9
-Program: Implement the concept of multithreading
+Program 10, 11
+Program: Implement generics and collection concept
 Domain: Courier Management System
 Author: Akash Roshan A
 Reg No: 2047207
 Github: akashroshan135
 */
 
-import java.io.*;
 import packages.*;
+import java.io.*;
+import java.util.*;
 
 // class courierMgmtSys. Used as main class
 class courierMgmtSys extends Thread {
@@ -25,6 +26,8 @@ class courierMgmtSys extends Thread {
 	static courier courierObjects[] = new courier[10];
 	static shipment shipmentObjects[] = new shipment[10];
 
+	static ArrayList<String> packages = new ArrayList<String>();
+	
 	static {
 		System.out.println("    Courier Management System\n\tby akashroshan135\n");
 	}
@@ -36,7 +39,7 @@ class courierMgmtSys extends Thread {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int choice;
 		System.out.println("\tMain Menu");
-		System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Exit");
+		System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Packages\n6. Exit");
 		System.out.println("Enter your choice:");
 
 		if (args.length == 0) {
@@ -44,14 +47,14 @@ class courierMgmtSys extends Thread {
 				choice = Integer.parseInt(br.readLine());
 			} catch (Exception e) {
 				System.out.println("Incorrect input. Program will exit");
-				choice = 5;
+				choice = 6;
 			}
 		} else {
 			try {
 				choice = Integer.parseInt(args[0]);
 			} catch (Exception e) {
 				System.out.println("Incorrect input. Program will exit");
-				choice = 5;
+				choice = 6;
 			}
 		}
 
@@ -73,20 +76,23 @@ class courierMgmtSys extends Thread {
 					e.printStackTrace();
 				}
 				break;
+			case 5:
+				package_program();
+				break;
 			default:
 				System.out.println("\nProgram will exit");
 				return;
 		}
 		do {
 			System.out.println("\tMain Menu");
-			System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Exit");
+			System.out.println("1. Admin Module\n2. Manager Module\n3. Courier Module\n4. Shipment Module\n5. Packages\n6. Exit");
 			System.out.println("Enter your choice:");
 
 			try {
 				choice = Integer.parseInt(br.readLine());
 			} catch (Exception e) {
 				System.out.println("Incorrect input. Program will exit");
-				choice = 5;
+				choice = 6;
 			}
 
 			switch (choice) {
@@ -107,11 +113,14 @@ class courierMgmtSys extends Thread {
 						e.printStackTrace();
 					}
 					break;
+				case 5:
+					package_program();
+					break;
 				default:
 					System.out.println("\nProgram will exit");
 					break;
 			}
-		} while (choice < 5);
+		} while (choice < 6);
 	}
 
 	public static int menu(int i) throws IOException {
@@ -162,10 +171,7 @@ class courierMgmtSys extends Thread {
 						break;
 					}
 					System.out.println("************Admin Details************\n");
-					for(int i = 1; i < adminID; i++) {
-						adminObjects[i].display();
-						System.out.println("-------------------------------------\n");
-					}
+					printAdmin(adminID, adminObjects);
 					System.out.println("*************************************");
 					break;
 				default:
@@ -379,4 +385,68 @@ class courierMgmtSys extends Thread {
 		} while (choice < 6);
 	}
 
+	public static void package_program() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int choice, index;
+
+		do {
+			System.out.println("\tPackage Menu");
+			System.out.println("1. Add a package\n2. Display all packages\n3. Change a package\n4. Remove a package\n5. Go Back");
+			System.out.println("\nEnter your choice:");
+
+			try {
+				choice = Integer.parseInt(br.readLine());
+			} catch (Exception e) {
+				System.out.println("Incorrect input. Program will exit");
+				choice = 5;
+			}
+
+			switch (choice) {
+				case 1:
+					System.out.println("Enter a new package name : ");
+					packages.add(br.readLine());
+					
+					System.out.println("\nPackage List:");
+					for (String i : packages) System.out.println(i);
+					System.out.println("");
+					break;
+				case 2:
+					System.out.println("List of packages:");
+					for (String i : packages) System.out.println(i);
+					System.out.println("");
+					break;
+				case 3:
+					System.out.println("Enter the package you want to change = ");
+					String oldVal = br.readLine();
+					System.out.println("Enter the new package name = ");
+					String newVal = br.readLine();
+					Collections.replaceAll(packages, oldVal, newVal);
+
+					System.out.println("\nPackage List:");
+					for (String i : packages) System.out.println(i);
+					System.out.println("");
+					break;
+				case 4:
+				System.out.println("Enter the package index : ");
+					try {
+						index = Integer.parseInt(br.readLine());
+					} catch (Exception e) {
+						System.out.println("Incorrect input. Program will go back");
+						return;
+					}
+					packages.remove(index);
+					break;
+				default:
+					System.out.println("\nProgram will go back");
+					break;
+			}
+		} while (choice < 5);
+	}
+
+	public static <Y> void printAdmin(int id, Y[] object) {
+		for(int i = 1; i < id; i++) {
+			((admin) object[i]).display();
+			System.out.println("-------------------------------------\n");
+		}
+	}
 }
