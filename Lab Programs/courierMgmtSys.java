@@ -21,9 +21,9 @@ class courierMgmtSys extends Thread {
 	static int courierID = 1;
 	static int shipmentID = 1;
 
-	static admin adminObjects[] = new admin[10];
-	static manager managerObjects[] = new manager[10];
-	static courier courierObjects[] = new courier[10];
+	static person adminObjects[] = new admin[10];
+	static person managerObjects[] = new manager[10];
+	static person courierObjects[] = new courier[10];
 	static shipment shipmentObjects[] = new shipment[10];
 
 	static ArrayList<String> packages = new ArrayList<String>();
@@ -171,7 +171,7 @@ class courierMgmtSys extends Thread {
 						break;
 					}
 					System.out.println("************Admin Details************\n");
-					printAdmin(adminID, adminObjects);
+					printPerson(adminID, adminObjects);
 					System.out.println("*************************************");
 					break;
 				default:
@@ -216,10 +216,7 @@ class courierMgmtSys extends Thread {
 						break;
 					}
 					System.out.println("***********Manager Details***********\n");
-					for(int i = 1; i < managerID; i++) {
-						managerObjects[i].display();
-						System.out.println("-------------------------------------\n");
-					}
+					printPerson(managerID, managerObjects);
 					System.out.println("*************************************");
 					break;
 				default:
@@ -266,10 +263,7 @@ class courierMgmtSys extends Thread {
 						break;
 					}
 					System.out.println("***********Courier Details***********\n");
-					for(int i = 1; i < courierID; i++) {
-						courierObjects[i].display();
-						System.out.println("-------------------------------------\n");
-					}
+					printPerson(courierID, courierObjects);
 					System.out.println("*************************************");
 					break;
 				default:
@@ -443,9 +437,9 @@ class courierMgmtSys extends Thread {
 		} while (choice < 5);
 	}
 
-	public static <Y> void printAdmin(int id, Y[] object) {
+	public static <Y> void printPerson(int id, Y[] object) {
 		for(int i = 1; i < id; i++) {
-			((admin) object[i]).display();
+			((person) object[i]).display();
 			System.out.println("-------------------------------------\n");
 		}
 	}
